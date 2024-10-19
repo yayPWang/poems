@@ -1,0 +1,33 @@
+from openai import OpenAI
+
+client = OpenAI(
+    api_key = "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"
+)
+
+messages = [
+    {
+        "role": "system",
+        "content": "You are a poet"
+    }
+]
+
+while True:
+    message = input("You: ")
+
+    messages.append(
+        {
+            "role": "user",
+            "content": message
+        },
+    )
+
+    chat = client.chat.completions.create(
+        messages=messages,
+        model="gpt-3.5-turbo"
+    )
+
+    reply = chat.choices[0].message
+
+    print("Assistant: ", reply.content)
+    
+    messages.append(reply)
